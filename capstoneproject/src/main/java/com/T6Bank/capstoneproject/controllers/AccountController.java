@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 
 import com.T6Bank.capstoneproject.exception.NoSuchResourceFoundException;
 import com.T6Bank.capstoneproject.models.AccountHolder;
+import com.T6Bank.capstoneproject.models.CDAccount;
 import com.T6Bank.capstoneproject.models.CheckingAccount;
 import com.T6Bank.capstoneproject.models.DBAAccount;
 import com.T6Bank.capstoneproject.models.PersonalCheckingAccount;
@@ -24,7 +25,10 @@ import com.T6Bank.capstoneproject.models.RegularIRA;
 import com.T6Bank.capstoneproject.models.RolloverIRA;
 import com.T6Bank.capstoneproject.models.RothIRA;
 import com.T6Bank.capstoneproject.models.SavingsAccount;
+import com.T6Bank.capstoneproject.payload.CurrentUser;
+import com.T6Bank.capstoneproject.payload.UserPrincipal;
 import com.T6Bank.capstoneproject.service.AccountService;
+
 
 
 @RestController
@@ -35,7 +39,8 @@ public class AccountController {
 	
 	@PostMapping(value = "/AccountHolders")
 	@ResponseStatus(HttpStatus.CREATED)
-	public AccountHolder addAccountHolder(@RequestBody @Valid AccountHolder account) {
+	public AccountHolder addAccountHolder(@CurrentUser UserPrincipal currentUser,@RequestBody @Valid AccountHolder account) {
+		account.setUser(currentUser.getId());
 		accountService.addAccount(account);
 		return account;
 	}
@@ -141,6 +146,19 @@ public class AccountController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<RegularIRA> getPostByIdRegularIRA(@PathVariable Long id) throws NoSuchResourceFoundException {
 		return accountService.getRegularIRA();
+	}
+	
+	@PostMapping(value = "/AccountHolders/{id}/CDAccount")
+	@ResponseStatus(HttpStatus.CREATED)
+	public CDAccount addByIdCDAccount(@PathVariable Long id, 
+			@RequestBody CDAccount  balance)throws NoSuchResourceFoundException{
+		return accountService.addCDAccountById(balance, id);
+	}
+	
+	@GetMapping(value = "/AccountHolders/{id}/CDAccount")
+	@ResponseStatus(HttpStatus.OK)
+	public List<CDAccount> getPostByIdCDAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
+		return accountService.getCDAccount();
 	}
 
 }

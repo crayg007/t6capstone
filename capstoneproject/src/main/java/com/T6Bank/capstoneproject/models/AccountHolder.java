@@ -6,14 +6,25 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
 
 
+
+
 @Entity
+@Table(name = "AccountHolder", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "id",
+                "user_id"
+        })
+})
 public class AccountHolder {
 	
 	@Id
@@ -35,6 +46,7 @@ public class AccountHolder {
 	private int numberOfRolloverIRA = 0;
 	private int numberOfRothIRA = 0;
 	private int numberOfRegularIRA = 0;
+	private int numberOfCDAccount = 0;
 	private double totalBalance = 0;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "accountHolder")
@@ -65,8 +77,29 @@ public class AccountHolder {
 	@OrderColumn
 	private RegularIRA[] regularIRA = new RegularIRA[numberOfRegularIRA];
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "accountHolder")
+	@OrderColumn
+	private CDAccount[] cdAccount = new CDAccount[numberOfCDAccount];
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+	
 	public AccountHolder() {}
 	
+	public AccountHolder(@NotBlank(message = "First name is mandatory") String firstName, String middleName,
+			@NotBlank(message = "Last name is mandatory") String lastName,
+			@NotBlank(message = "SSN is mandatory") String sSN, Long userId) {
+		super();
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		SSN = sSN;
+		this.user = new User(userId);
+	}
+
+
+
 	public AccountHolder(String firstName, String middleName, String lastName, String sSN) {
 		super();
 		this.firstName = firstName;
@@ -75,6 +108,14 @@ public class AccountHolder {
 		this.SSN = sSN;
 	}
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(Long long1) {
+		this.user = new User(long1);
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -372,9 +413,47 @@ public class AccountHolder {
 		return total;
 	}
 	
+///////CDAccount////////
+	
+	public CDAccount addCDAccount(CDOffering offering ,double openingBalance) {
+		CDAccount cd = new CDAccount(offering, openingBalance);
+		return addCDAccount(cd);
+	}
+	
+	public CDAccount addCDAccount(CDAccount cd) {
+		cd.setAccountHolder(this);
+		if(numberOfCDAccount >= cdAccount.length) {
+			CDAccount[] newCDAccount = new CDAccount[numberOfCDAccount + 1];
+			for(int i = 0 ; i < cdAccount.length  ; i++) {
+				newCDAccount[i] = cdAccount[i];
+			} 
+			cdAccount = newCDAccount;
+		}			
+		cdAccount[numberOfCDAccount] = cd;
+		numberOfCDAccount++;
+		getCombinedBalance();
+		return cd;
+	}
+	
+	public CDAccount[] getCDAccount() {
+		return cdAccount;
+	}
+	
+	public int getNumberOfCDAccount() {
+		return numberOfCDAccount;
+	}
+	
+	public double getCDAccountBalance() {
+		double total = 0;
+		for(int i = 0; i < getNumberOfCDAccount();i++) {
+		total += cdAccount[i].getBalance();
+		}
+		return total;
+	}
+	
 	public double getCombinedBalance() {
-		return totalBalance += getSavingsBalance() + getCheckingBalance()+ getPersonalCheckingBalance() + getDBABalance() +
-				getRolloverIRABalance() + getRothIRABalance() + getRegularIRABalance();
+		return totalBalance = getSavingsBalance() + getCheckingBalance()+ getPersonalCheckingBalance() + getDBABalance() +
+				getRolloverIRABalance() + getRothIRABalance() + getRegularIRABalance() + getCDAccountBalance();
 	}
 
 }
