@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.T6Bank.capstoneproject.models.AccountHolder;
+import com.T6Bank.capstoneproject.models.CDAccount;
 import com.T6Bank.capstoneproject.models.CheckingAccount;
 import com.T6Bank.capstoneproject.models.DBAAccount;
 import com.T6Bank.capstoneproject.models.PersonalCheckingAccount;
@@ -15,6 +16,7 @@ import com.T6Bank.capstoneproject.models.RolloverIRA;
 import com.T6Bank.capstoneproject.models.RothIRA;
 import com.T6Bank.capstoneproject.models.SavingsAccount;
 import com.T6Bank.capstoneproject.repository.AccountRepository;
+import com.T6Bank.capstoneproject.repository.CDAccountRepository;
 import com.T6Bank.capstoneproject.repository.CheckingRepository;
 import com.T6Bank.capstoneproject.repository.PersonalRepository;
 import com.T6Bank.capstoneproject.repository.RegularRepository;
@@ -49,6 +51,9 @@ public class AccountService {
 	
 	@Autowired
 	private RegularRepository regularRepository;
+	
+	@Autowired
+	private CDAccountRepository cdAccountRepository;
 	
 	public AccountHolder addAccount(AccountHolder account) {
 		return accountRepository.save(account);
@@ -123,5 +128,14 @@ public class AccountService {
 	
 	public List<RegularIRA> getRegularIRA(){
 		return regularRepository.findAll();
+	}
+	
+	public CDAccount addCDAccountById(CDAccount balance, Long id)  {
+		cdAccountRepository.save(accountRepository.getOne(id).addCDAccount(balance));
+		return balance;
+	}
+	
+	public List<CDAccount> getCDAccount(){
+		return cdAccountRepository.findAll();
 	}
 }
