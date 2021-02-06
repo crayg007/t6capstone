@@ -40,9 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
      JwtAuthenticationFilter jwtAuthenticationFilter;
-       
-    
-	
+  
 	@Bean
     public PasswordEncoder passwordEncoder() {
        // return new BCryptPasswordEncoder();
@@ -74,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/login").permitAll()
             .antMatchers("/createUser").permitAll()
             .antMatchers("/AccountHolders").hasAnyAuthority("User","Admin")
-            .antMatchers("/AccountHolders/**").hasAuthority("Admin")
+            .antMatchers("/AccountHolders/**").permitAll()//.hasAuthority("Admin")
             .antMatchers("/Me/**").permitAll()//hasAuthority("AccountHolder")
             .antMatchers(HttpMethod.GET ,"/CDOfferings").hasAnyAuthority("User","Admin")
             .antMatchers(HttpMethod.POST ,"/CDOfferings").hasAuthority("Admin")

@@ -51,15 +51,15 @@ public class UserController {
 	public CheckingAccount addCheckingAccount(@CurrentUser UserPrincipal currentUser
 			,@RequestBody @Valid CheckingAccount  balance)throws NoSuchResourceFoundException{
 		
-		 userService.addCheckingAccountByUser(currentUser, balance);
+		userService.addCheckingAccountByUser(currentUser, balance);
 		return balance;
 	}
 	
 	@GetMapping(value = "/User/CheckingAccounts")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CheckingAccount> getCheckingAccount(@CurrentUser UserPrincipal currentUser) throws NoSuchResourceFoundException {
+	public CheckingAccount[] getCheckingAccount(@CurrentUser UserPrincipal currentUser) throws NoSuchResourceFoundException {
 		
-		return accountService.getCheckingAccounts();
+		return userService.getCheckingAccount(currentUser);
 	}
 	
 	@PostMapping(value = "/User/SavingsAccount")
@@ -73,9 +73,9 @@ public class UserController {
 	
 	@GetMapping(value = "/User/SavingsAccount")
 	@ResponseStatus(HttpStatus.OK)
-	public List<SavingsAccount> getSavingsAccount() throws NoSuchResourceFoundException {
+	public SavingsAccount[] getSavingsAccount(@CurrentUser UserPrincipal currentUser) throws NoSuchResourceFoundException {
 		
-		return accountService.getSavingsAccounts();
+		return userService.getSavingsAccount(currentUser);
 	}
 	
 	@PostMapping(value = "/User/Personal")
@@ -89,9 +89,9 @@ public class UserController {
 	
 	@GetMapping(value = "/User/Personal")
 	@ResponseStatus(HttpStatus.OK)
-	public List<PersonalCheckingAccount> getPersonalCheckingAccount() throws NoSuchResourceFoundException {
+	public PersonalCheckingAccount[] getPersonalCheckingAccount(@CurrentUser UserPrincipal currentUser) throws NoSuchResourceFoundException {
 		
-		return accountService.getPersonalCheckingAccounts();
+		return userService.getPersonalCheckingAccount(currentUser);
 	}
 	
 	@PostMapping(value = "/User/DBA")
@@ -105,9 +105,9 @@ public class UserController {
 	
 	@GetMapping(value = "/User/DBA")
 	@ResponseStatus(HttpStatus.OK)
-	public List<DBAAccount> getDBAAccount() throws NoSuchResourceFoundException {
+	public DBAAccount[] getDBAAccount(@CurrentUser UserPrincipal currentUser) throws NoSuchResourceFoundException {
 		
-		return accountService.getDBAAccounts();
+		return userService.getDBAAccount(currentUser);
 	}
 	
 	@PostMapping(value = "/User/CDAccount")
@@ -121,9 +121,9 @@ public class UserController {
 	
 	@GetMapping(value = "/User/CDAccount")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CDAccount> getCDAccount() throws NoSuchResourceFoundException {
+	public CDAccount[] getCDAccount(@CurrentUser UserPrincipal currentUser) throws NoSuchResourceFoundException {
 		
-		return accountService.getCDAccount();
+		return userService.getCDAccount(currentUser);
 	}
 	
 	@PostMapping(value = "/User/RegularIRA")
@@ -137,9 +137,9 @@ public class UserController {
 	
 	@GetMapping(value = "/User/RegularIRA")
 	@ResponseStatus(HttpStatus.OK)
-	public List<RegularIRA> getRegularIRA() throws NoSuchResourceFoundException {
+	public RegularIRA[] getRegularIRA(@CurrentUser UserPrincipal currentUser) throws NoSuchResourceFoundException {
 		
-		return accountService.getRegularIRA();
+		return userService.getRegularIRA(currentUser);
 	}
 	
 	@PostMapping(value = "/User/RolloverIRA")
@@ -153,9 +153,9 @@ public class UserController {
 	
 	@GetMapping(value = "/User/RolloverIRA")
 	@ResponseStatus(HttpStatus.OK)
-	public List<RolloverIRA> getRolloverIRA() throws NoSuchResourceFoundException {
+	public RolloverIRA[] getRolloverIRA(@CurrentUser UserPrincipal currentUser) throws NoSuchResourceFoundException {
 		
-		return accountService.getRolloverIRA();
+		return userService.getRolloverIRA(currentUser);
 	}
 	
 	@PostMapping(value = "/User/RothIRA")
@@ -169,9 +169,9 @@ public class UserController {
 	
 	@GetMapping(value = "/User/RothIRA")
 	@ResponseStatus(HttpStatus.OK)
-	public List<RothIRA> getRothIRA() throws NoSuchResourceFoundException {
+	public RothIRA[] getRothIRA(@CurrentUser UserPrincipal currentUser) throws NoSuchResourceFoundException {
 		
-		return accountService.getRothIRA();
+		return userService.getRothIRA(currentUser);
 	}
 
 }

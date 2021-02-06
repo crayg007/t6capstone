@@ -60,106 +60,106 @@ public class AccountController {
 	
 	@PostMapping(value = "/AccountHolders/{id}/SavingsAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SavingsAccount addByIdSavingsAccount(@PathVariable Long id, 
+	public SavingsAccount[] addByIdSavingsAccount(@PathVariable Long id, 
 			@RequestBody SavingsAccount  balance)throws NoSuchResourceFoundException{
 		return accountService.addSavingsAccountById(balance, id);
 	}
 	
 	@GetMapping(value = "/AccountHolders/{id}/SavingsAccounts")
 	@ResponseStatus(HttpStatus.OK)
-	public List<SavingsAccount> getPostByIdSavingsAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
-		return accountService.getSavingsAccounts();
+	public SavingsAccount[] getPostByIdSavingsAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
+		return accountService.getSAvingsAccountById(id);
 	}
 	
 	@PostMapping(value = "/AccountHolders/{id}/CheckingAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CheckingAccount addByIdCheckingAccount(@PathVariable Long id, 
+	public CheckingAccount[] addByIdCheckingAccount(@PathVariable Long id, 
 			@RequestBody CheckingAccount  balance)throws NoSuchResourceFoundException{
 		return accountService.addCheckingAccountById(balance, id);
 	}
 	
 	@GetMapping(value = "/AccountHolders/{id}/CheckingAccounts")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CheckingAccount> getPostByIdCheckingAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
-		return accountService.getCheckingAccounts();
+	public CheckingAccount[] getPostByIdCheckingAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
+		return accountService.getCheckingAccountsbyId(id);
 	}
 	
 	@PostMapping(value = "/AccountHolders/{id}/PersonalChecking")
 	@ResponseStatus(HttpStatus.CREATED)
-	public PersonalCheckingAccount addByIdPersonalCheckingAccount(@PathVariable Long id, 
+	public PersonalCheckingAccount[] addByIdPersonalCheckingAccount(@PathVariable Long id, 
 			@RequestBody PersonalCheckingAccount  balance)throws NoSuchResourceFoundException{
 		return accountService.addPersonalCheckingAccountById(balance, id);
 	}
 	
 	@GetMapping(value = "/AccountHolders/{id}/PersonalChecking")
 	@ResponseStatus(HttpStatus.OK)
-	public List<PersonalCheckingAccount> getPostByIdPersonalCheckingAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
-		return accountService.getPersonalCheckingAccounts();
+	public PersonalCheckingAccount[] getPostByIdPersonalCheckingAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
+		return accountService.getPersonalCheckingAccountById(id);
 	}
 	
 	@PostMapping(value = "/AccountHolders/{id}/DBA")
 	@ResponseStatus(HttpStatus.CREATED)
-	public DBAAccount addByIdDBAAccount(@PathVariable Long id, 
+	public DBAAccount[] addByIdDBAAccount(@PathVariable Long id, 
 			@RequestBody DBAAccount  balance)throws NoSuchResourceFoundException{
 		return accountService.addDBAAccountById(balance, id);
 	}
 	
 	@GetMapping(value = "/AccountHolders/{id}/DBA")
 	@ResponseStatus(HttpStatus.OK)
-	public List<DBAAccount> getPostByIdDBAAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
-		return accountService.getDBAAccounts();
+	public DBAAccount[] getPostByIdDBAAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
+		return accountService.getDBAAccountById(id);
 	}
 	
 	@PostMapping(value = "/AccountHolders/{id}/Rollover")
 	@ResponseStatus(HttpStatus.CREATED)
-	public RolloverIRA addByIdRolloverIRA(@PathVariable Long id, 
+	public RolloverIRA[] addByIdRolloverIRA(@PathVariable Long id, 
 			@RequestBody RolloverIRA  balance)throws NoSuchResourceFoundException{
 		return accountService.addRolloverIRAById(balance, id);
 	}
 	
 	@GetMapping(value = "/AccountHolders/{id}/Rollover")
 	@ResponseStatus(HttpStatus.OK)
-	public List<RolloverIRA> getPostByIdRolloverIRA(@PathVariable Long id) throws NoSuchResourceFoundException {
-		return accountService.getRolloverIRA();
+	public RolloverIRA[] getPostByIdRolloverIRA(@PathVariable Long id) throws NoSuchResourceFoundException {
+		return accountService.getRolloverIRAById(id);
 	}
 	
 	@PostMapping(value = "/AccountHolders/{id}/Roth")
 	@ResponseStatus(HttpStatus.CREATED)
-	public RothIRA addByIdRothIRA(@PathVariable Long id, 
+	public RothIRA[] addByIdRothIRA(@PathVariable Long id, 
 			@RequestBody RothIRA  balance)throws NoSuchResourceFoundException{
 		return accountService.addRothIRAById(balance, id);
 	}
 	
 	@GetMapping(value = "/AccountHolders/{id}/Roth")
 	@ResponseStatus(HttpStatus.OK)
-	public List<RothIRA> getPostByIdRothIRA(@PathVariable Long id) throws NoSuchResourceFoundException {
-		return accountService.getRothIRA();
+	public RothIRA[] getPostByIdRothIRA(@PathVariable Long id) throws NoSuchResourceFoundException {
+		return accountService.getRothIraById(id);
 	}
 	
 	@PostMapping(value = "/AccountHolders/{id}/Regular")
 	@ResponseStatus(HttpStatus.CREATED)
-	public RegularIRA addByIdRegularIRA(@PathVariable Long id, 
+	public RegularIRA[] addByIdRegularIRA(@PathVariable Long id, 
 			@RequestBody RegularIRA  balance)throws NoSuchResourceFoundException{
 		return accountService.addRegularIRAById(balance, id);
 	}
 	
 	@GetMapping(value = "/AccountHolders/{id}/Regular")
 	@ResponseStatus(HttpStatus.OK)
-	public List<RegularIRA> getPostByIdRegularIRA(@PathVariable Long id) throws NoSuchResourceFoundException {
-		return accountService.getRegularIRA();
+	public RegularIRA[] getPostByIdRegularIRA(@PathVariable Long id) throws NoSuchResourceFoundException {
+		return accountService.getRegularIRAById(id);
 	}
 	
 	@PostMapping(value = "/AccountHolders/{id}/CDAccount")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CDAccount addByIdCDAccount(@PathVariable Long id, 
+	public CDAccount[] addByIdCDAccount(@PathVariable Long id, 
 			@RequestBody CDAccount  balance)throws NoSuchResourceFoundException{
 		return accountService.addCDAccountById(balance, id);
 	}
 	
 	@GetMapping(value = "/AccountHolders/{id}/CDAccount")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CDAccount> getPostByIdCDAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
-		return accountService.getCDAccount();
+	public CDAccount[] getPostByIdCDAccount(@PathVariable Long id) throws NoSuchResourceFoundException {
+		return accountService.getCDAccountById(id);
 	}
 
 }
