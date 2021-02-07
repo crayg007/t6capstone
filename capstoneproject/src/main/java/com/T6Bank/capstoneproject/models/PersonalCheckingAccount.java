@@ -10,12 +10,12 @@ public class PersonalCheckingAccount extends BankAccount {
 	private static double balance;
 	
 	PersonalCheckingAccount(){
-		super(balance,interestRate,term);
+		super(balance,interestRate,term,active);
 		
 	}
 	
-	PersonalCheckingAccount (double openingBalance){
-		super(openingBalance,interestRate,term);
+	PersonalCheckingAccount (double openingBalance,boolean active){
+		super(openingBalance,interestRate,term,active);
 		
 	}
 }

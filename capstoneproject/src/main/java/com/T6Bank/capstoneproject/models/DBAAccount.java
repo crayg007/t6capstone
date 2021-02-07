@@ -10,12 +10,12 @@ public class DBAAccount extends BankAccount {
 	private static double balance;
 	
 	DBAAccount(){
-		super(balance,interestRate,term);
+		super(balance,interestRate,term,active);
 		
 	}
 	
-	DBAAccount (double openingBalance){
-		super(openingBalance,interestRate,term);
+	DBAAccount (double openingBalance,boolean active){
+		super(openingBalance,interestRate,term,active);
 		
 	}
 }

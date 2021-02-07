@@ -10,12 +10,12 @@ public class RolloverIRA extends BankAccount {
 	private static double balance;
 	
 	RolloverIRA(){
-		super(balance,interestRate,term);
+		super(balance,interestRate,term,active);
 		
 	}
 	
-	RolloverIRA (double openingBalance){
-		super(openingBalance,interestRate,term);
+	RolloverIRA (double openingBalance,boolean active){
+		super(openingBalance,interestRate,term,active);
 		
 	}
 }

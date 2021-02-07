@@ -10,12 +10,12 @@ public class RothIRA extends BankAccount {
 	private static double balance;
 	
 	RothIRA(){
-		super(balance,interestRate,term);
+		super(balance,interestRate,term,active);
 		
 	}
 	
-	RothIRA (double openingBalance){
-		super(openingBalance,interestRate,term);
+	RothIRA (double openingBalance,boolean active){
+		super(openingBalance,interestRate,term,active);
 		
 	}
 }

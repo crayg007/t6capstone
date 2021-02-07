@@ -10,12 +10,12 @@ public class RegularIRA extends BankAccount {
 	private static double balance;
 	
 	RegularIRA(){
-		super(balance,interestRate,term);
+		super(balance,interestRate,term,active);
 		
 	}
 	
-	RegularIRA (double openingBalance){
-		super(openingBalance,interestRate,term);
+	RegularIRA (double openingBalance,boolean active){
+		super(openingBalance,interestRate,term,active);
 		
 	}
 }

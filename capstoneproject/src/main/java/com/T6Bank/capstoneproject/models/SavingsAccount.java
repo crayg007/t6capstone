@@ -10,12 +10,12 @@ public class SavingsAccount extends BankAccount {
 	private static double balance;
 	
 	SavingsAccount(){
-		super(balance,interestRate,term);
+		super(balance,interestRate,term,active);
 		
 	}
 	
-	SavingsAccount (double openingBalance){
-		super(openingBalance,interestRate,term);
+	SavingsAccount (double openingBalance,boolean active){
+		super(openingBalance,interestRate,term,active);
 		
 	}
 	

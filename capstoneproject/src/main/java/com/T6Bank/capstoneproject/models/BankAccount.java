@@ -39,39 +39,47 @@ public abstract class BankAccount {
 	private double interestRate;
 	
 	private int term;
+	protected static boolean active = false;
 	
 //	List<Transaction> transactions = new ArrayList<Transaction>();
 	public BankAccount() {}
 	public BankAccount(@Min(value = 0, message = "Balance must be positive") double balance,
 			@DecimalMin(value = "0.0", message = "interestRate > 0.0") @DecimalMax(value = "1.0", message = "interestRate < 1.0") double interestRate,
-			int term) {
+			int term,boolean active) {
 		
 		this.balance = balance;
 		this.interestRate = interestRate;
 		this.term = term;
-		
+		this.active = active;
 	}
 	public BankAccount(long id) {
-		super();
+		
 		this.id = id;
 	}
 	public BankAccount(@Min(value = 0, message = "Balance must be positive") double balance,
-			@DecimalMin(value = "0.0", message = "interestRate > 0.0") @DecimalMax(value = "1.0", message = "interestRate < 1.0") double interestRate) {
+			@DecimalMin(value = "0.0", message = "interestRate > 0.0") @DecimalMax(value = "1.0", message = "interestRate < 1.0") double interestRate,
+			boolean active) {
 		this.balance = balance;
 		this.interestRate = interestRate;
-		
+		this.active = active;
 	}
 
 	public BankAccount(@Min(value = 0, message = "Balance must be positive") double balance,
 			@DecimalMin(value = "0.0", message = "interestRate > 0.0") @DecimalMax(value = "1.0", message = "interestRate < 1.0") double interestRate,
-			long id) {
+			long id, boolean active) {
 		
 		this.balance = balance;
 		this.interestRate = interestRate;
 		this.id = id;
-		
+		this.active = active;
 	}
-
+	
+	public static boolean isActive() {
+		return active;
+	}
+	public static void setActive(boolean active) {
+		BankAccount.active = active;
+	}
 	public long getId() {
 		return id;
 	}

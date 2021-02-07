@@ -4,7 +4,8 @@ import com.T6Bank.capstoneproject.models.BankAccount;
 
 public class TransferTransaction extends Transaction {
 
-	TransferTransaction(BankAccount sourceAccount, BankAccount targetAccount, double amount){
+	public TransferTransaction() {}
+	public TransferTransaction(BankAccount sourceAccount, BankAccount targetAccount, double amount){
 		
 		setTargetAccount(targetAccount);
 		setSourceAccount(sourceAccount);
