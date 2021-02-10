@@ -1,17 +1,28 @@
 package com.T6Bank.capstoneproject.models;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderColumn;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
+
+import org.hibernate.annotations.DiscriminatorOptions;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
@@ -19,7 +30,10 @@ import java.util.ArrayList;
 import com.T6Bank.capstoneproject.transaction.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name= "account_type" , discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorOptions(force = true)
 public abstract class BankAccount {
 	
 	@Id
@@ -39,9 +53,14 @@ public abstract class BankAccount {
 	private double interestRate;
 	
 	private int term;
-	protected static boolean active = false;
+	private boolean active;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "targetAccount")
+	@OrderColumn
+	List<Transaction> transactions = new ArrayList<Transaction>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sourceAccount")
+	@OrderColumn
+	List<Transaction> sourceTransaction = new ArrayList<Transaction>();
 	
-//	List<Transaction> transactions = new ArrayList<Transaction>();
 	public BankAccount() {}
 	public BankAccount(@Min(value = 0, message = "Balance must be positive") double balance,
 			@DecimalMin(value = "0.0", message = "interestRate > 0.0") @DecimalMax(value = "1.0", message = "interestRate < 1.0") double interestRate,
@@ -74,11 +93,16 @@ public abstract class BankAccount {
 		this.active = active;
 	}
 	
-	public static boolean isActive() {
+	public BankAccount(double balance2, double interestRate2, int term2) {
+		this.balance = balance2;
+		this.interestRate = interestRate2;
+		this.term = term2;
+	}
+	public boolean isActive() {
 		return active;
 	}
-	public static void setActive(boolean active) {
-		BankAccount.active = active;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	public long getId() {
 		return id;
@@ -143,12 +167,20 @@ public abstract class BankAccount {
 
 	
 	
-//	public void addTransaction(Transaction transaction) {
-//		transactions.add(transaction);
-//	}
-//	
-//	public List<Transaction>getTransactions(){
-//		return transactions;
-//	}
+	public void addTransaction(Transaction transaction) {
+		if(transaction.getTargetAccount().equals(this))
+			transactions.add(transaction);
+		else 
+			sourceTransaction.add(transaction);
+	}
+	
+	public List<Transaction>getTransactions(){
+		List<Transaction> combineTransactionList = new ArrayList<>();
+		combineTransactionList.addAll(transactions);
+		combineTransactionList.addAll(sourceTransaction);
+		return combineTransactionList;
+	}
+	
+	
 	
 }

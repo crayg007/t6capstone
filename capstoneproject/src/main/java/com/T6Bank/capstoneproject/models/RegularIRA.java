@@ -1,8 +1,10 @@
 package com.T6Bank.capstoneproject.models;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("regular")
 public class RegularIRA extends BankAccount {
 
 	private static double interestRate = 0.0001 ;
@@ -10,8 +12,8 @@ public class RegularIRA extends BankAccount {
 	private static double balance;
 	
 	RegularIRA(){
-		super(balance,interestRate,term,active);
-		
+		//super(balance,interestRate,term,active);
+		super(balance,interestRate,term);
 	}
 	
 	RegularIRA (double openingBalance,boolean active){

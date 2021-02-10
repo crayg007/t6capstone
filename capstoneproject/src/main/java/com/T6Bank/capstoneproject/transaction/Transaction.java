@@ -2,13 +2,39 @@ package com.T6Bank.capstoneproject.transaction;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.DiscriminatorOptions;
+
 import com.T6Bank.capstoneproject.models.BankAccount;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
-
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name= "transaction_type" , discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorOptions(force = true)
 public abstract class Transaction {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	@ManyToOne
+	@JoinColumn(name = "source_bank_account_id")
+	@JsonIgnore
 	BankAccount sourceAccount;
+	@ManyToOne
+	@JoinColumn(name = "target_bank_account_id")
+	@JsonIgnore
 	BankAccount targetAccount;
 	private double amount;
 	Date TransactionDate;

@@ -1,7 +1,12 @@
 package com.T6Bank.capstoneproject.transaction;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import com.T6Bank.capstoneproject.models.BankAccount;
 
+@Entity
+@DiscriminatorValue("transfer")
 public class TransferTransaction extends Transaction {
 
 	public TransferTransaction() {}

@@ -2,11 +2,14 @@ package com.T6Bank.capstoneproject.transaction;
 
 import java.util.Optional;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 import com.T6Bank.capstoneproject.models.BankAccount;
 import com.T6Bank.capstoneproject.models.CheckingAccount;
 
-
+@Entity
+@DiscriminatorValue("withdraw")
 public class WithdrawTransaction extends Transaction {
 
 	public WithdrawTransaction() {}
