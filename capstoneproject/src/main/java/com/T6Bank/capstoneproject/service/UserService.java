@@ -73,44 +73,76 @@ public class UserService {
 		 return accountRepository.findByUserId(currentUser.getId());
 	 }
 	 
-	 public CheckingAccount addCheckingAccountByUser(UserPrincipal currentUser, CheckingAccount balance) {
+	 public CheckingAccount[] addCheckingAccountByUser(UserPrincipal currentUser, CheckingAccount balance) {
 		 checkingRepository.save((getAccountHolderByUserId(currentUser).addCheckingAccount(balance)));
-		 return balance;
+		 return getAccountHolderByUserId(currentUser).getCheckingAccount();
 	 }
 	 
-	 public SavingsAccount addSavingsAccountByUser(UserPrincipal currentUser, SavingsAccount balance) {
+	 public CheckingAccount[] getCheckingAccount(UserPrincipal currentUser){
+		 return getAccountHolderByUserId(currentUser).getCheckingAccount();
+	 }
+	 
+	 public SavingsAccount[] addSavingsAccountByUser(UserPrincipal currentUser, SavingsAccount balance) {
 		 savingsRepository.save((getAccountHolderByUserId(currentUser).addSavingsAccount(balance)));
-		 return balance;
+		 return getAccountHolderByUserId(currentUser).getSavingsAccount();
 	 }
 	 
-	 public CDAccount addCDAccountByUser(UserPrincipal currentUser, CDAccount balance) {
+	 public SavingsAccount[] getSavingsAccount(UserPrincipal currentUser){
+		 return getAccountHolderByUserId(currentUser).getSavingsAccount();
+	 }
+	 
+	 public CDAccount[] addCDAccountByUser(UserPrincipal currentUser, CDAccount balance) {
 		 cdAccountRepository.save((getAccountHolderByUserId(currentUser).addCDAccount(balance)));
-		 return balance;
+		 return getAccountHolderByUserId(currentUser).getCDAccount();
 	 }
 	 
-	 public DBAAccount addDBAAccountByUser(UserPrincipal currentUser, DBAAccount balance) {
+	 public CDAccount[] getCDAccount(UserPrincipal currentUser){
+		 return getAccountHolderByUserId(currentUser).getCDAccount();
+	 }
+	 
+	 public DBAAccount[] addDBAAccountByUser(UserPrincipal currentUser, DBAAccount balance) {
 		 dbaRepository.save(getAccountHolderByUserId(currentUser).addDBAAccount(balance));
-		 return balance;
+		 return getAccountHolderByUserId(currentUser).getDBAAccount();
 	 }
 	 
-	 public PersonalCheckingAccount addPersonalCheckingAccountByUser(UserPrincipal currentUser, PersonalCheckingAccount balance) {
+	 public DBAAccount[] getDBAAccount(UserPrincipal currentUser){
+		 return getAccountHolderByUserId(currentUser).getDBAAccount();
+	 }
+	 
+	 public PersonalCheckingAccount[] addPersonalCheckingAccountByUser(UserPrincipal currentUser, PersonalCheckingAccount balance) {
 		 personalRepository.save(getAccountHolderByUserId(currentUser).addPersonalCheckingAccount(balance));
-		 return balance;
+		 return getAccountHolderByUserId(currentUser).getPersonalCheckingAccount();
 	 }
 	 
-	 public RegularIRA addRegularIRAByUser(UserPrincipal currentUser, RegularIRA balance) {
+	 public PersonalCheckingAccount[] getPersonalCheckingAccount(UserPrincipal currentUser){
+		 return getAccountHolderByUserId(currentUser).getPersonalCheckingAccount();
+	 }
+	 
+	 public RegularIRA[] addRegularIRAByUser(UserPrincipal currentUser, RegularIRA balance) {
 		 regularRepository.save(getAccountHolderByUserId(currentUser).addRegularIRA(balance));
-		 return balance;
+		 return getAccountHolderByUserId(currentUser).getRegularIRA();
 	 }
 	 
-	 public RolloverIRA addRolloverIRAByUser(UserPrincipal currentUser, RolloverIRA balance) {
+	 public RegularIRA[] getRegularIRA(UserPrincipal currentUser){
+		 return getAccountHolderByUserId(currentUser).getRegularIRA();
+	 }
+	 
+	 public RolloverIRA[] addRolloverIRAByUser(UserPrincipal currentUser, RolloverIRA balance) {
 		 rolloverRepository.save(getAccountHolderByUserId(currentUser).addRolloverIRA(balance));
-		 return balance;
+		 return getAccountHolderByUserId(currentUser).getRolloverIRA();
 	 }
 	 
-	 public RothIRA addRothIRAByUser(UserPrincipal currentUser, RothIRA balance) {
+	 public RolloverIRA[] getRolloverIRA(UserPrincipal currentUser){
+		 return getAccountHolderByUserId(currentUser).getRolloverIRA();
+	 }
+	 
+	 public RothIRA[] addRothIRAByUser(UserPrincipal currentUser, RothIRA balance) {
 		 rothRepository.save(getAccountHolderByUserId(currentUser).addRothIRA(balance));
-		 return balance;
+		 return getAccountHolderByUserId(currentUser).getRothIRA();
+	 }
+	 
+	 public RothIRA[] getRothIRA(UserPrincipal currentUser){
+		 return getAccountHolderByUserId(currentUser).getRothIRA();
 	 }
 
 }
