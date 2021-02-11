@@ -46,7 +46,12 @@ public class UserPrincipal implements UserDetails {
 	        );
 	    }
 
-	    public Long getId() {
+	    
+	    public void setActive(boolean active) {
+			this.active = active;
+		}
+
+		public Long getId() {
 	        return id;
 	    }
 

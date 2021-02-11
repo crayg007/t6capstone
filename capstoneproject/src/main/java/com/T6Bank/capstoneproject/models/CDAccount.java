@@ -1,6 +1,7 @@
 package com.T6Bank.capstoneproject.models;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Min;
 
 
 @Entity
+@DiscriminatorValue("cdAccount")
 public class CDAccount extends BankAccount {
 	
 	private static double balance;
@@ -23,24 +25,26 @@ public class CDAccount extends BankAccount {
 //	private CDOffering cdOffering;
 	
 	public CDAccount() {
-		super(balance, interestRate, term);
+		//super(balance, interestRate, term,active);
+		super(balance,interestRate,term);
 	}
 	
 	public CDAccount(@Min(value = 0, message = "Balance must be positive") double balance,
 			@DecimalMin(value = "0.0", message = "interestRate > 0.0") @DecimalMax(value = "1.0", message = "interestRate < 1.0") double interestRate,
-			int term, double balance2, int term2, double interestRate2) {
-		super(balance, interestRate, term);
+			int term, double balance2, int term2, double interestRate2,boolean active) {
+		super(balance, interestRate, term,active);
 		this.balance = balance2;
 		term = term2;
 		interestRate = interestRate2;
 	}
 
-	public CDAccount(CDOffering cdOffering, double balance) {
-		super(balance, interestRate, term);
+	public CDAccount(CDOffering cdOffering, double balance,boolean active) {
+		super(balance, interestRate, term,active);
 		//this.cdOffering = cdOffering;
 		this.balance = balance;
 		term = cdOffering.getTerm();
 		interestRate = cdOffering.getInterestRate();
+		
 	}
 
 	public double getBalance() {

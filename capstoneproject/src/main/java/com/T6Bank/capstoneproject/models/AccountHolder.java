@@ -38,6 +38,7 @@ public class AccountHolder {
 	String lastName;
 	@NotBlank(message = "SSN is mandatory")
 	String SSN;
+	private boolean active = false;
 	
 	private int numberOfSavingsAccount = 0;
 	private int numberOfCheckingAccount = 0;
@@ -89,25 +90,35 @@ public class AccountHolder {
 	
 	public AccountHolder(@NotBlank(message = "First name is mandatory") String firstName, String middleName,
 			@NotBlank(message = "Last name is mandatory") String lastName,
-			@NotBlank(message = "SSN is mandatory") String sSN, Long userId) {
+			@NotBlank(message = "SSN is mandatory") String sSN, Long userId, boolean active) {
 		super();
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
 		SSN = sSN;
 		this.user = new User(userId);
+		this.active = active;
 	}
 
 
 
-	public AccountHolder(String firstName, String middleName, String lastName, String sSN) {
+	public AccountHolder(String firstName, String middleName, String lastName, String sSN, boolean active) {
 		super();
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
 		this.SSN = sSN;
+		this.active = active;
 	}
 	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -149,8 +160,8 @@ public class AccountHolder {
 	
 ///////////////////Savings/////////
 	
-	public SavingsAccount addSavingsAccount(double openingBalance) {
-		SavingsAccount savings = new SavingsAccount(openingBalance);
+	public SavingsAccount addSavingsAccount(double openingBalance,boolean active) {
+		SavingsAccount savings = new SavingsAccount(openingBalance,active);
 		return addSavingsAccount(savings);
 	}
 	
@@ -187,8 +198,8 @@ public class AccountHolder {
 	
 /////////Checking//////////
 	
-	public CheckingAccount addCheckingAccount(double openingBalance) {
-		CheckingAccount checking = new CheckingAccount(openingBalance);
+	public CheckingAccount addCheckingAccount(double openingBalance,boolean active) {
+		CheckingAccount checking = new CheckingAccount(openingBalance,active);
 		return addCheckingAccount(checking);
 	}
 	
@@ -225,8 +236,8 @@ public class AccountHolder {
 	
 ///////Personal Checking
 	
-	public PersonalCheckingAccount addPersonalCheckingAccount(double openingBalance) {
-		PersonalCheckingAccount personal = new PersonalCheckingAccount(openingBalance);
+	public PersonalCheckingAccount addPersonalCheckingAccount(double openingBalance,boolean active) {
+		PersonalCheckingAccount personal = new PersonalCheckingAccount(openingBalance,active);
 		return addPersonalCheckingAccount(personal);
 	}
 	
@@ -263,8 +274,8 @@ public class AccountHolder {
 	
 ///////DBA//////
 	
-	public DBAAccount addDBAAccount(double openingBalance) {
-		DBAAccount DBA = new DBAAccount(openingBalance);
+	public DBAAccount addDBAAccount(double openingBalance,boolean active) {
+		DBAAccount DBA = new DBAAccount(openingBalance,active);
 		return addDBAAccount(DBA);
 	}
 	
@@ -301,8 +312,8 @@ public class AccountHolder {
 	
 ///////RolloverIRA//////
 	
-	public RolloverIRA addRolloverIRA(double openingBalance) {
-		RolloverIRA rollover = new RolloverIRA(openingBalance);
+	public RolloverIRA addRolloverIRA(double openingBalance,boolean active) {
+		RolloverIRA rollover = new RolloverIRA(openingBalance,active);
 		return addRolloverIRA(rollover);
 	}
 	
@@ -339,8 +350,8 @@ public class AccountHolder {
 	
 //////RothIRA//////
 	
-	public RothIRA addRothIRA(double openingBalance) {
-		RothIRA roth = new RothIRA(openingBalance);
+	public RothIRA addRothIRA(double openingBalance,boolean active) {
+		RothIRA roth = new RothIRA(openingBalance,active);
 		return addRothIRA(roth);
 	}
 	
@@ -377,8 +388,8 @@ public class AccountHolder {
 	
 ///////RegularIRA//////
 	
-	public RegularIRA addRegularIRA(double openingBalance) {
-		RegularIRA regular = new RegularIRA(openingBalance);
+	public RegularIRA addRegularIRA(double openingBalance,boolean active) {
+		RegularIRA regular = new RegularIRA(openingBalance,active);
 		return addRegularIRA(regular);
 	}
 	
@@ -415,8 +426,8 @@ public class AccountHolder {
 	
 ///////CDAccount////////
 	
-	public CDAccount addCDAccount(CDOffering offering ,double openingBalance) {
-		CDAccount cd = new CDAccount(offering, openingBalance);
+	public CDAccount addCDAccount(CDOffering offering ,double openingBalance,boolean active) {
+		CDAccount cd = new CDAccount(offering, openingBalance,active);
 		return addCDAccount(cd);
 	}
 	
